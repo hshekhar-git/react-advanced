@@ -1,15 +1,14 @@
-import "./App.css";
-import { ThemeState } from "./context/themeState";
-import Theme from "./component/theme";
+import React from 'react';
+import { ThemeProvider } from './context/ThemeProvider';
+import ColorPicker from './component/ColorPicker';
 
-function App() {
+
+const App = () => {
   return (
-    <>
-      <ThemeState>
-      <Theme />
-      </ThemeState>
-    </>
+    <ThemeProvider>
+      <ColorPicker />
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
