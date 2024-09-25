@@ -12,23 +12,27 @@ export const ThemeProvider = ({ children }) => {
     // State to manage the color, initialized from cookies
     const [color, setColor] = useState(() => Cookies.get('color') || 'white');
 
-    // Function to update the color and store it in cookies
+    // Function to update the color and store it in both cookies and localStorage
     const updateColor = (newColor) => {
         setColor(newColor);
         Cookies.set('color', newColor, { expires: 7 }); // Store for 7 days
+        localStorage.setItem('color', newColor); // Update localStorage to sync between tabs
     };
 
-    // Sync with cookies on mount and on color change
+    // Sync with cookies on mount and on color change across tabs
     useEffect(() => {
         const storedColor = Cookies.get('color');
         if (storedColor && storedColor !== color) {
             setColor(storedColor);
         }
 
-        const syncTabs = () => {
-            const updatedColor = Cookies.get('color');
-            if (updatedColor && updatedColor !== color) {
-                setColor(updatedColor);
+        // Listen to localStorage changes to sync across tabs
+        const syncTabs = (e) => {
+            if (e.key === 'color') {
+                const updatedColor = localStorage.getItem('color');
+                if (updatedColor && updatedColor !== color) {
+                    setColor(updatedColor);
+                }
             }
         };
 
