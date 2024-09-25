@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import themeContext from '../context/themeContext';
+import useTheme from '../customHooks/useTheme';
 
 function Theme() {
-    const { theme, toggleTheme }=useContext(themeContext);
+    const { theme, toggleTheme }=useTheme();
     const appStyle = {
         backgroundColor: theme === 'light' ? '#fff' : '#333',
         color: theme === 'light' ? '#000' : '#fff',
